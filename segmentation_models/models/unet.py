@@ -88,7 +88,7 @@ def DecoderUpsamplingX2Block(filters, stage, use_batchnorm=False, attention=Fals
 
         if skip is not None:
             if attention:
-                x = attention_block(x, skip)
+                x = attention_block(x, skip, value=x)
             else:
                 x = layers.Concatenate(axis=concat_axis, name=concat_name)([x, skip])
 
@@ -126,7 +126,7 @@ def DecoderTransposeX2Block(filters, stage, use_batchnorm=False, attention=False
 
         if skip is not None:
             if attention:
-                x = attention_block(x, skip)
+                x = attention_block(x, skip, value=x)
             else:
                 x = layers.Concatenate(axis=concat_axis, name=concat_name)([x, skip])
 
