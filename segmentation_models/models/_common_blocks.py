@@ -74,7 +74,7 @@ def SeparableConv2dBnReLU(filters, use_batchnorm, name=None):
     def wrapper(input_tensor):
         x = Conv2dBn(
             filters,
-            kernel_size=3,
+            kernel_size=kernel_size,
             strides=(1, 1),
             padding='same',
             use_batchnorm=use_batchnorm,
