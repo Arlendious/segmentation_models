@@ -27,7 +27,7 @@ def get_submodules():
 #  Blocks
 # ---------------------------------------------------------------------
 
-def attention(query, key, value, relative_position_bias=None, dropout_rate=0.0):
+def attention_block(query, key, value, relative_position_bias=None, dropout_rate=0.0):
     q_shape = tf.shape(query)
     k_shape = tf.shape(key)
     v_shape = tf.shape(value)
@@ -88,7 +88,7 @@ def DecoderUpsamplingX2Block(filters, stage, use_batchnorm=False, attention=Fals
 
         if skip is not None:
             if attention:
-                x = attention(x, skip)
+                x = attention_block(x, skip)
             else:
                 x = layers.Concatenate(axis=concat_axis, name=concat_name)([x, skip])
 
@@ -126,7 +126,7 @@ def DecoderTransposeX2Block(filters, stage, use_batchnorm=False, attention=False
 
         if skip is not None:
             if attention:
-                x = attention(x, skip)
+                x = attention_block(x, skip)
             else:
                 x = layers.Concatenate(axis=concat_axis, name=concat_name)([x, skip])
 
