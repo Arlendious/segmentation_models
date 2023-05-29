@@ -67,3 +67,33 @@ def Conv2dBn(
         return x
 
     return wrapper
+
+def SeparableConv2dBnReLU(filters, use_batchnorm, name=None):
+    kwargs = get_submodules_from_kwargs(locals())
+
+    def wrapper(input_tensor):
+        x = Conv2dBn(
+            filters,
+            kernel_size=3,
+            strides=(1, 1),
+            padding='same',
+            use_batchnorm=use_batchnorm,
+            name=name + '_depthwise' if name else None,
+            **kwargs
+        )(input_tensor)
+
+        x = Conv2dBn(
+            filters,
+            kernel_size=1,
+            strides=(1, 1),
+            padding='same',
+            use_batchnorm=use_batchnorm,
+            name=name + '_pointwise' if name else None,
+            **kwargs
+        )(x)
+
+        x = layers.Activation('relu', name=name + '_relu' if name else None)(x)
+
+        return x
+
+    return wrapper
