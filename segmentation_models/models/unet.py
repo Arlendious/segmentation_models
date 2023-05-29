@@ -150,7 +150,7 @@ def build_unet(
         classes=1,
         activation='sigmoid',
         use_batchnorm=True,
-        enable_attention=False,
+        attention=False,
         dropout_rate=0.0,
 ):
     input_ = backbone.input
@@ -173,7 +173,7 @@ def build_unet(
         else:
             skip = None
 
-        if enable_attention: 
+        if attention: 
             x = decoder_block(decoder_filters[i], stage=i, use_batchnorm=use_batchnorm, attention=attention,
                               dropout_rate=dropout_rate)(x, skip)
         else:
@@ -212,7 +212,7 @@ def Unet(
         decoder_block_type='upsampling',
         decoder_filters=(256, 128, 64, 32, 16),
         decoder_use_batchnorm=True,
-        enable_attention=False,
+        attention=False,
         dropout_rate=0.0,
         **kwargs
 ):
@@ -284,7 +284,7 @@ def Unet(
         activation=activation,
         n_upsample_blocks=len(decoder_filters),
         use_batchnorm=decoder_use_batchnorm,
-        enable_attention=enable_attention,
+        attention=attention,
         dropout_rate=dropout_rate,
     )
 
