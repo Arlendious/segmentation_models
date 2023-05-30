@@ -63,7 +63,7 @@ def SeparableConv3x3BnReLU(filters, use_batchnorm, name=None):
     def wrapper(input_tensor):
         return SeparableConv2dBnReLU(
             filters,
-            kernel_size=3,
+            kernel_size=kernel_size,
             activation='relu',
             kernel_initializer='he_uniform',
             padding='same',
